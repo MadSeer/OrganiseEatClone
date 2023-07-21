@@ -1,6 +1,5 @@
 package com.example.organiseeatclone.database
 
-import android.preference.PreferenceManager
 import com.example.organiseeatclone.R
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
@@ -8,7 +7,7 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmList
 
 class Database {
-    val config = RealmConfiguration.create(schema = setOf(DishType::class,Dish::class))
+    val config = RealmConfiguration.create(schema = setOf(DishType::class, Dish::class))
     val realm: Realm = Realm.open(config)
 
     fun addDishType(
@@ -23,7 +22,7 @@ class Database {
         }
     }
 
-    fun setDefaultDishTypes(){
+    fun setDefaultDishTypes() {
         realm.writeBlocking {
             copyToRealm(DishType().apply {
                 this.name = "Salads"
@@ -74,25 +73,8 @@ class Database {
     }
 
 
-
     fun getDishTypes(): List<DishTypeLocalModel> {
         return realm.query<DishType>().find().map { it.toLocalModel() }
     }
 
-    /*fun addtestdata(){
-       realm.writeBlocking {
-           copyToRealm(DishType().apply {
-               this.name = "ZAlupa"
-           })
-           copyToRealm(DishType().apply {
-               this.name = "ZAlupa2"
-           })
-           copyToRealm(DishType().apply {
-               this.name = "ZAlupa1231"
-           })
-           copyToRealm(DishType().apply {
-               this.name = "ZAlupa6654"
-           })
-       }
-   }*/
 }
