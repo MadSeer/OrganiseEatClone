@@ -1,5 +1,6 @@
 package com.example.organiseeatclone.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.example.organiseeatclone.core.BaseActivity
 import com.example.organiseeatclone.database.DishTypeLocalModel
 import com.example.organiseeatclone.databinding.ActivityMainBinding
 import com.example.organiseeatclone.ui.adapters.RecyclerViewAdapter
+import com.example.organiseeatclone.ui.addDish.AddDishActivity
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -32,6 +34,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
     override fun ActivityMainBinding.initializeLayout() {
-
+        addRecipeButton.setOnClickListener{
+            val intent = Intent(this@MainActivity,AddDishActivity::class.java)
+            this@MainActivity.startActivity(intent)
+        }
     }
 }
