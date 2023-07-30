@@ -17,4 +17,10 @@ class AddDishViewModel() : ViewModel(), KoinComponent {
         ingredientsLiveData.value = currentList
     }
 
+    fun deleteIngredient(position: Int){
+        var currentList = ingredientsLiveData.value
+        currentList!!.asReversed().remove(currentList[position])
+        ingredientsLiveData.value = currentList
+    }
+
 }

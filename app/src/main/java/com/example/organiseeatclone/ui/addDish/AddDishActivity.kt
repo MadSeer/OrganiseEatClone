@@ -22,12 +22,15 @@ class AddDishActivity : BaseActivity<ActivityNewDishBinding>() {
     }
 
     private fun handleIngredients(strings: ArrayList<String>?) {
-        val adapter = IngredientsRecyclerViewAdapter(strings)
+        val adapter = IngredientsRecyclerViewAdapter(strings,::deleteIngredientButtonCallback)
         binding.ingredientRecyclerView2.adapter = adapter
     }
 
+    private fun deleteIngredientButtonCallback(position: Int) {
+        viewModel.deleteIngredient(position)
+    }
+
     override fun ActivityNewDishBinding.initializeLayout() {
-        setContentView(root)
         addIngridientButton.setOnClickListener {
             viewModel.addIngredient(newIngridient.text.toString())
             newIngridient.text = null
