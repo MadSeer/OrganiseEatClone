@@ -1,5 +1,7 @@
 package com.example.organiseeatclone.ui.addDish
 
+import android.content.Intent
+import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.component.KoinComponent
@@ -21,6 +23,10 @@ class AddDishViewModel() : ViewModel(), KoinComponent {
         var currentList = ingredientsLiveData.value
         currentList!!.asReversed().remove(currentList[position])
         ingredientsLiveData.value = currentList
+    }
+
+    fun addImage(){
+
     }
 
 }

@@ -3,7 +3,9 @@ package com.example.organiseeatclone.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -28,9 +30,10 @@ class IngredientsRecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentIngredient = ingredientsList?.get(position)
         val name = holder.itemView.findViewById<TextView>(R.id.ingredientTitleInList)
-        val button = holder.itemView.findViewById<ImageButton>(R.id.deleteDishButton)
+        val deleteIngridientButton = holder.itemView.findViewById<ImageButton>(R.id.deleteIngredientButton)
         name.text = currentIngredient.toString()
-        button.setOnClickListener{deleteIngredientButtonCallback(position)}
+        deleteIngridientButton.setOnClickListener{deleteIngredientButtonCallback(position)}
+
     }
 
     override fun getItemCount(): Int {
