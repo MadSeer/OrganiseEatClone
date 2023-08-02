@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OrganiseEatClone</string>
+    <string name="save_receipt">Save receipt</string>
+    <string name="choose_categories">Choose categories</string>
 </resources>

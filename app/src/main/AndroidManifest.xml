@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.addDish.AddDishActivity"></activity>
+        <activity android:name=".ui.addDish.ChooseCategory.ChooseCategoryActivity"></activity>
     </application>
 
 </manifest>

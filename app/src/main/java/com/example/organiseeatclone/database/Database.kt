@@ -1,5 +1,6 @@
 package com.example.organiseeatclone.database
 
+import android.graphics.Bitmap
 import com.example.organiseeatclone.R
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
@@ -56,8 +57,8 @@ class Database {
         name: String,
         recipe: String,
         ingridients: List<String>,
-        image: Int,
-        icon: Int,
+        image: ByteArray,
+        icon: ByteArray,
     ) {
         realm.writeBlocking {
             realm.query<DishType>("id == $0", type.id).first().find().apply {

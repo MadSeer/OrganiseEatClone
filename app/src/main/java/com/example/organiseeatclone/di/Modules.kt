@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import com.example.organiseeatclone.AppPreferences
 import com.example.organiseeatclone.database.Database
 import com.example.organiseeatclone.ui.addDish.AddDishViewModel
+import com.example.organiseeatclone.ui.addDish.ChooseCategory.ChooseCategoryViewModel
 import com.example.organiseeatclone.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
@@ -19,6 +20,7 @@ val singleModules = module {
 val viewModelModules = module {
     viewModelOf(::MainViewModel)
     viewModelOf(::AddDishViewModel)
+    viewModelOf(::ChooseCategoryViewModel)
 }
 
 fun provideSharedPreferences(context: Context): SharedPreferences =

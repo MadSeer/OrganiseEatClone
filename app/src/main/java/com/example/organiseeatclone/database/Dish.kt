@@ -1,11 +1,12 @@
 package com.example.organiseeatclone.database
 
-import androidx.annotation.DrawableRes
-import com.example.organiseeatclone.R
+import android.net.Uri
+import android.os.Parcelable
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import org.mongodb.kbson.ObjectId
 
 class Dish : RealmObject {
@@ -14,15 +15,11 @@ class Dish : RealmObject {
     var name = ""
     var recipe = ""
     var ingridients: RealmList<String> = listOf<String>().toRealmList()
+    var image: ByteArray? = null//R.drawable.image_dish_default
+    var icon: ByteArray? = null//R.drawable.icon_typedish_any
 
-    @DrawableRes
-    var image: Int = R.drawable.image_dish_default
-
-    @DrawableRes
-    var icon: Int = R.drawable.icon_typedish_any
-
-    fun toLocalModel() = DishSerialLocalModel(
-        id = this.id,
+    fun toLocalModel() = DishLocalModel(
+        id = this.id.toString(),
         name = this.name,
         recipe = this.recipe,
         ingridients = this.ingridients.toList(),
@@ -31,13 +28,22 @@ class Dish : RealmObject {
         )
 }
 
-data class DishSerialLocalModel(
-    val id: ObjectId,
+@Parcelize
+data class DishLocalModel(
+    val id: String,
     var name: String,
     var recipe: String,
     var ingridients: List<String>?,
-    @DrawableRes
-    var image: Int,
-    @DrawableRes
-    var icon: Int
-)
+    var image: ByteArray?,
+    var icon: ByteArray?
+) : Parcelable
+
+@Parcelize
+data class DishParcelizeLocalModel(
+    val id: String,
+    var name: String,
+    var recipe: String,
+    var ingridients: List<String>?,
+    var image: Uri?,
+    var icon: Uri?
+) : Parcelable

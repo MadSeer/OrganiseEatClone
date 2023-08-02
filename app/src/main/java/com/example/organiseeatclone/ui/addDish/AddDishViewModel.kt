@@ -25,7 +25,7 @@ class AddDishViewModel() : ViewModel(), KoinComponent {
         ingredientsLiveData.value = currentList
     }
 
-    fun addImage(){
+    fun createDishModel(){
 
     }
 
