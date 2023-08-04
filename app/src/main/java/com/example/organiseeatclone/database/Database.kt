@@ -1,11 +1,14 @@
 package com.example.organiseeatclone.database
 
-import android.graphics.Bitmap
+import android.net.Uri
 import com.example.organiseeatclone.R
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Database {
     val config = RealmConfiguration.create(schema = setOf(DishType::class, Dish::class))
@@ -57,19 +60,24 @@ class Database {
         name: String,
         recipe: String,
         ingridients: List<String>,
-        image: ByteArray,
-        icon: ByteArray,
-    ) {
+        image: Uri?,
+        icon: Uri?,
+    ) = CoroutineScope(Dispatchers.IO).launch {
         realm.writeBlocking {
-            realm.query<DishType>("id == $0", type.id).first().find().apply {
-                this?.dishes?.add(Dish().apply {
-                    this.name = name
-                    this.recipe = recipe
-                    this.ingridients = ingridients.toRealmList()
-                    this.image = image
-                    this.icon = icon
-                })
+            val dishType = realm.query<DishType>("name == $0", type.name)
+                .find()
+                .first()
+            val dish = Dish().apply {
+                this.name = name
+                this.icon = icon.toString()
+                this.image = image.toString()
+                this.recipe = recipe
+                this.ingridients = ingridients.toRealmList()
             }
+            var currentDishes = dishType!!.dishes.toMutableList()
+            currentDishes.add(dish)
+            /*dishType!!.dishes.add(dish)*/
+            dishType.dishes = currentDishes.toRealmList()
         }
     }
 

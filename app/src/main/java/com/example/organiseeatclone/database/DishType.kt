@@ -2,6 +2,7 @@ package com.example.organiseeatclone.database
 
 import androidx.annotation.DrawableRes
 import com.example.organiseeatclone.R
+import io.realm.kotlin.Deleteable
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
