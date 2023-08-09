@@ -56,31 +56,44 @@ class Database {
     }
 
     fun addDish(
-        type: DishType,
+        types: List<DishTypeLocalModel>,
         name: String,
         recipe: String,
         ingridients: List<String>,
         image: Uri?,
         icon: Uri?,
     ) = CoroutineScope(Dispatchers.IO).launch {
+
         realm.writeBlocking {
-            val dishType = realm.query<DishType>("name == $0", type.name)
-                .find()
-                .first()
-            val dish = Dish().apply {
+
+            this.copyToRealm(Dish().apply {
                 this.name = name
                 this.icon = icon.toString()
                 this.image = image.toString()
                 this.recipe = recipe
                 this.ingridients = ingridients.toRealmList()
+            })
+        }
+
+        realm.writeBlocking {
+            val currentDish = this.query<Dish>("name == $0", name)
+                .find()
+                .first()
+
+            types.forEach {
+                val dishType = this.query<DishType>("name == $0", it.name)
+                    .find()
+                    .first()
+                var newDishes = dishType.dishes
+                newDishes.add(currentDish)
+                dishType
+                dishType.dishes = newDishes
             }
-            var currentDishes = dishType!!.dishes.toMutableList()
-            currentDishes.add(dish)
-            /*dishType!!.dishes.add(dish)*/
-            dishType.dishes = currentDishes.toRealmList()
         }
     }
-
+    fun getAllDishes(): List<DishLocalModel> {
+        return realm.query<Dish>().find().map { it.toLocalModel() }
+    }
 
     fun getDishTypes(): List<DishTypeLocalModel> {
         return realm.query<DishType>().find().map { it.toLocalModel() }
