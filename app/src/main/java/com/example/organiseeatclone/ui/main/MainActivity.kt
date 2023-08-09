@@ -9,6 +9,7 @@ import com.example.organiseeatclone.database.DishTypeLocalModel
 import com.example.organiseeatclone.databinding.ActivityMainBinding
 import com.example.organiseeatclone.ui.adapters.DishTypeRecyclerViewAdapter
 import com.example.organiseeatclone.ui.addDish.AddDishActivity
+import com.example.organiseeatclone.ui.dishType.DishTypeActivity
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -22,8 +23,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun handleDishesType(dishTypeLocalModels: List<DishTypeLocalModel>?) {
-        val adapter = DishTypeRecyclerViewAdapter(dishTypeLocalModels)
+        val adapter = DishTypeRecyclerViewAdapter(dishTypeLocalModels,::categoryChooseListenerCallback)
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun categoryChooseListenerCallback(dishType: String) {
+        val intent = Intent(this@MainActivity,DishTypeActivity::class.java)
+        intent.putExtra(DISH_TYPE_NAME,dishType)
     }
 
     override fun setupBinding(
@@ -37,5 +43,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             val intent = Intent(this@MainActivity,AddDishActivity::class.java)
             this@MainActivity.startActivity(intent)
         }
+    }
+
+    companion object{
+        const val DISH_TYPE_NAME = "Dish type name"
     }
 }

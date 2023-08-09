@@ -11,7 +11,8 @@ import com.example.organiseeatclone.R
 import com.example.organiseeatclone.database.DishTypeLocalModel
 
 class DishTypeRecyclerViewAdapter(
-    val dishTypes: List<DishTypeLocalModel>?
+    val dishTypes: List<DishTypeLocalModel>?,
+    var categoryChooseListenerCallback: (String) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -31,6 +32,7 @@ class DishTypeRecyclerViewAdapter(
         val icon = holder.itemView.findViewById<ImageView>(R.id.imageView)
         type.text = currentDishType?.name
         currentDishType?.let { icon.setImageResource(it.icon) }
+        icon.setOnClickListener { categoryChooseListenerCallback(currentDishType!!.name) }
     }
 
     override fun getItemCount(): Int {

@@ -95,6 +95,10 @@ class Database {
         return realm.query<Dish>().find().map { it.toLocalModel() }
     }
 
+    fun getDishesByType(type:String){
+        val dishType = realm.query<DishType>("name == ")
+    }
+
     fun getDishTypes(): List<DishTypeLocalModel> {
         return realm.query<DishType>().find().map { it.toLocalModel() }
     }
