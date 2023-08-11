@@ -30,6 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun categoryChooseListenerCallback(dishType: String) {
         val intent = Intent(this@MainActivity,DishTypeActivity::class.java)
         intent.putExtra(DISH_TYPE_NAME,dishType)
+        this@MainActivity.startActivity(intent)
     }
 
     override fun setupBinding(

@@ -6,6 +6,7 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmList
+import io.realm.kotlin.types.RealmList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,8 +96,9 @@ class Database {
         return realm.query<Dish>().find().map { it.toLocalModel() }
     }
 
-    fun getDishesByType(type:String){
-        val dishType = realm.query<DishType>("name == ")
+    fun getDishesByType(type:String): List<Dish> {
+        val dishType = realm.query<DishType>("name == $0", type).first().find()
+        return dishType?.dishes?.toList() ?: listOf()
     }
 
     fun getDishTypes(): List<DishTypeLocalModel> {
