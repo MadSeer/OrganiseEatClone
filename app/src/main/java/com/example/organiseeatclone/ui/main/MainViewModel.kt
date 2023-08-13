@@ -28,5 +28,9 @@ class MainViewModel() : ViewModel(), KoinComponent {
         }
     }
 
+    fun permissionAccess(){
+
+    }
+
 
 }

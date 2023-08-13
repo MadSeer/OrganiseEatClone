@@ -29,7 +29,7 @@ class DishesRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentDish = dishes?.get(position)
-        var icon = holder.itemView.findViewById<ImageView>(R.id.dishTitleDish)
+        var icon = holder.itemView.findViewById<ImageView>(R.id.dishIconDish)
         var title = holder.itemView.findViewById<TextView>(R.id.dishTitleDish)
         if (currentDish?.icon != null) icon.setImageURI(currentDish?.icon?.toUri())
         else icon.setImageDrawable(R.drawable.icon_typedish_any.toDrawable())
