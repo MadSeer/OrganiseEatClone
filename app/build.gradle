@@ -53,6 +53,9 @@ dependencies {
     //Preferences DataStore
     implementation 'androidx.datastore:datastore-preferences:1.1.0-alpha04'
 
+    //Image work (Glide)
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'

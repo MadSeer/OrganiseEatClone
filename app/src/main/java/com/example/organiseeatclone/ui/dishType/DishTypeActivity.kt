@@ -30,6 +30,7 @@ class DishTypeActivity : BaseActivity<ActivityDishTypeBinding>() {
 
     override fun ActivityDishTypeBinding.initializeLayout() {
         val dishType = intent.getBundleExtra(DISH_TYPE_NAME)
+        //val dishTypeData = intent.data
 
     }
 }

@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.example.organiseeatclone.core.BaseActivity
 import com.example.organiseeatclone.database.DishTypeLocalModel
@@ -16,10 +17,10 @@ import com.example.organiseeatclone.ui.adapters.DishTypeRecyclerViewAdapter
 import com.example.organiseeatclone.ui.addDish.AddDishActivity
 import com.example.organiseeatclone.ui.dishType.DishTypeActivity
 import org.koin.android.ext.android.inject
-import java.lang.Exception
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
+    private lateinit var permissionLauncher: ActivityResultLauncher<String>
     val viewModel: MainViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,28 +36,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun categoryChooseListenerCallback(dishType: String) {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if(checkPermission()) {
             startDishTypeActivity(dishType)
-        } else {
-            //requestPermissions
-            //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),requestCode)
-            try {
-                startDishTypeActivity(dishType)
-            } catch (e:Exception){
-                Toast.makeText(this,"Error",Toast.LENGTH_SHORT)
-            }
         }
-
-
     }
 
     private fun startDishTypeActivity(dishType: String) {
         val intent = Intent(this@MainActivity, DishTypeActivity::class.java)
         intent.putExtra(DISH_TYPE_NAME, dishType)
+        //intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         this@MainActivity.startActivity(intent)
     }
 
@@ -67,9 +55,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
     override fun ActivityMainBinding.initializeLayout() {
+        registerPermissionListener()
         addRecipeButton.setOnClickListener {
             val intent = Intent(this@MainActivity, AddDishActivity::class.java)
             this@MainActivity.startActivity(intent)
+        }
+    }
+
+    private fun registerPermissionListener(){
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+            if(!it)Toast.makeText(this,"Permission denied", Toast.LENGTH_SHORT)
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+                    == PackageManager.PERMISSION_GRANTED -> {
+                        return true
+            }
+
+            shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                Toast.makeText(this,"We need your permission", Toast.LENGTH_SHORT)
+                return false
+            }
+
+            else -> {
+                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                return false
+            }
+
         }
     }
 
