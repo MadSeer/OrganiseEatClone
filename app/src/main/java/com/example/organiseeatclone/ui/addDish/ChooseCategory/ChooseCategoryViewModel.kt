@@ -72,6 +72,7 @@ class ChooseCategoryViewModel() : ViewModel(), KoinComponent {
             context,
             model.icon!!
         )
+
         val iconBitmap = getImg(icon).toString()
 
         /*val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(tmp.extension)
