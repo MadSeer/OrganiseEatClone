@@ -40,6 +40,7 @@ class ChooseCategoryActivity : BaseActivity<ActivityNewDishCategoryBinding>() {
         val model = intent.getParcelableExtra<DishParcelizeLocalModel>(DISH_MODEL)
         saveReceiptButton2.setOnClickListener {
             viewModel.saveReceipt(model!!)
+            viewModel.post(model,baseContext)
             val intent = Intent(this@ChooseCategoryActivity,MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             this@ChooseCategoryActivity.startActivity(intent)
