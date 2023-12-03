@@ -2,4 +2,10 @@
     <string name="app_name">OrganiseEatClone</string>
     <string name="save_receipt">Save receipt</string>
     <string name="choose_categories">Choose categories</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="search">Search</string>
+    <string name="receipt">Receipt</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="servings">Servings</string>
+    <string name="instructions">Instructions</string>
 </resources>

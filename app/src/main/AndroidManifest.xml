@@ -24,9 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.addDish.AddDishActivity"></activity>
-        <activity android:name=".ui.addDish.ChooseCategory.ChooseCategoryActivity"></activity>
-        <activity android:name=".ui.dishType.DishTypeActivity"></activity>
+        <activity android:name=".ui.addDish.AddDishActivity" />
+        <activity android:name=".ui.addDish.ChooseCategory.ChooseCategoryActivity" />
+        <activity android:name=".ui.dishType.DishTypeActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

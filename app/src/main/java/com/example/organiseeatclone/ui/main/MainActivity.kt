@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.example.organiseeatclone.core.BaseActivity
 import com.example.organiseeatclone.database.DishTypeLocalModel
 import com.example.organiseeatclone.databinding.ActivityMainBinding
+import com.example.organiseeatclone.ui.search.SearchActivity
 import com.example.organiseeatclone.ui.adapters.DishTypeRecyclerViewAdapter
 import com.example.organiseeatclone.ui.addDish.AddDishActivity
 import com.example.organiseeatclone.ui.dishType.DishTypeActivity
@@ -58,6 +59,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         registerPermissionListener()
         addRecipeButton.setOnClickListener {
             val intent = Intent(this@MainActivity, AddDishActivity::class.java)
+            this@MainActivity.startActivity(intent)
+        }
+        searchButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, SearchActivity::class.java)
             this@MainActivity.startActivity(intent)
         }
     }

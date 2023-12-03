@@ -61,7 +61,7 @@ class ChooseCategoryViewModel() : ViewModel(), KoinComponent {
 
     fun post(model:DishParcelizeLocalModel, context: Context){
 
-        val image = getTmpImageFileFromUri(
+        /*val image = getTmpImageFileFromUri(
             context,
             model.image!!
         )
@@ -73,7 +73,7 @@ class ChooseCategoryViewModel() : ViewModel(), KoinComponent {
             model.icon!!
         )
 
-        val iconBitmap = getImg(icon).toString()
+        val iconBitmap = getImg(icon).toString();*/
 
         /*val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(tmp.extension)
             .orEmpty()
